@@ -27,39 +27,95 @@ class ViewController: UIViewController {
     let story4 = "What? Such a cop out! Did you know traffic accidents are the second leading cause of accidental death for most adult age groups?"
     let story5 = "As you smash through the guardrail and careen towards the jagged rocks below you reflect on the dubious wisdom of stabbing someone while they are driving a car you are in."
     let story6 = "You bond with the murderer while crooning verses of \"Can you feel the love tonight\". He drops you off at the next town. Before you go he asks you if you know any good places to dump bodies. You reply: \"Try the pier.\""
-    
-    
+   
     // UI Elements linked to the storyboard
     @IBOutlet weak var topButton: UIButton!         // Has TAG = 1
     @IBOutlet weak var bottomButton: UIButton!      // Has TAG = 2
     @IBOutlet weak var storyTextView: UILabel!
     
     // TODO Step 5: Initialise instance variables here
-    
+    var storyIndex : Int = 1
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+      
+      
         // TODO Step 3: Set the text for the storyTextView, topButton, bottomButton, and to T1_Story, T1_Ans1, and T1_Ans2
+         storyTextView.text = story1
+         topButton.setTitle(answer1a, for: .normal)
+         bottomButton.setTitle(answer1b, for: .normal)
+
         
     }
 
     
     // User presses one of the buttons
     @IBAction func buttonPressed(_ sender: UIButton) {
-    
+    /*    Start with Story Index = 1
+          if tag = 1 & Story Index = 1 -> Story 3
+          if tag = 2 & Story Index = 1 -> Story 2
+          if tag = 1 & Story Index = 2 -> Story 3
+          if tag = 2 & Story Index = 2 -> Story 4
+          if tag = 1 & Story Index = 3 -> Story 6
+          if tag = 2 & Story Index = 3 -> Story 5
+   */
+      
+      
         // TODO Step 4: Write an IF-Statement to update the views
-                
+      //assumes storyIndex == 1
+//      if sender.tag == 1 {
+//          storyTextView.text = story3
+//          topButton.setTitle(answer3a, for: .normal)
+//      } else if sender.tag == 2 {
+//         storyTextView.text = story2
+//         bottomButton.setTitle(answer3b, for: .normal)
+//      }
+      
         // TODO Step 6: Modify the IF-Statement to complete the story
-        
-    
+      if ( storyIndex == 1 || storyIndex == 2) && sender.tag == 1 {
+           storyTextView.text = story3
+           storyIndex = 3
+           topButton.setTitle(answer3a, for: .normal)
+           bottomButton.setTitle(answer3b, for: .normal)
+      } else if ( storyIndex == 2  && sender.tag == 2  ){
+         storyTextView.text = story4
+         storyIndex = 4
+         hideButtons(isHidden: true)
+      } else if (storyIndex == 1  && sender.tag == 2  ){
+         storyTextView.text = story2
+         storyIndex = 2
+         topButton.setTitle(answer2a, for: .normal)
+         bottomButton.setTitle(answer2b, for: .normal)
+
+      }else if ( storyIndex == 2  && sender.tag == 2  ){
+         storyTextView.text = story4
+         storyIndex = 4
+         hideButtons(isHidden: true)
+         
+      } else if ( storyIndex == 3) && sender.tag == 1 {
+         storyTextView.text = story6
+         storyIndex = 6
+         hideButtons(isHidden: true)
+      } else if ( storyIndex == 3) && sender.tag == 2 {
+         storyTextView.text = story5
+         storyIndex = 5
+         hideButtons(isHidden: true)
+
+      } else {
+         storyTextView.text = story3
+         storyIndex = 3
+         topButton.setTitle(answer3a, for: .normal)
+         bottomButton.setTitle(answer3b, for: .normal)
+      }
+   
     }
     
-
-
+   func hideButtons(isHidden: Bool) {
+      topButton.isHidden = isHidden
+      bottomButton.isHidden = isHidden
+   }
 
 }
 
